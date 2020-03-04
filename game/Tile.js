@@ -18,8 +18,8 @@ const Tile = ({ pos: { row, col, mine }, width, value, done, handleClick }) => {
     };
 
     return (
-        <div className={!done? "tile" : (mine? "tile mine" : "tile open")} onClick={(e) => handleOnClick(e, {row, col, mine})}>
-            <span>{value}</span>
+        <a href="#" className={!done? "tile" : (mine? "tile mine" : "tile open")} onClick={(e) => handleOnClick(e, {row, col, mine})}>
+            {value}
 
             <style jsx>{`
                 .tile{
@@ -29,15 +29,15 @@ const Tile = ({ pos: { row, col, mine }, width, value, done, handleClick }) => {
                     border: 1px solid red;
                     background-color: grey;
                     color: grey;
-                    box-shadow: 3px 3px 5px 6px #ccc;
+                    text-decoration: none;
+                    font-weight: bold;
+                    font-size: 2em;
                     text-align: center;
-                    vertical-align: middle;
                 }
 
                 .tile.open{
                     background-color: white;
                     color: black;
-                    font-weight: bold;
                 }
 
                 .tile.mine{
@@ -46,7 +46,7 @@ const Tile = ({ pos: { row, col, mine }, width, value, done, handleClick }) => {
                 }
             `}
             </style>
-        </div>
+        </a>
     )
 };
 

@@ -25,12 +25,21 @@ const Header = () => (
       .header{
         display: grid;
         grid-auto-flow: column;
-        padding: 0 0 20px;
         font-weight: bold;
         font-size: 1.5em;
+        border: 1px solid;
+        border-radius: 5px;
+        font-size: 1.5em;
+        padding: 3px;
+        margin: 0 0 20px;
       } 
       .link-item{
         padding: 10px;
+        background-color: aliceblue;
+        text-align: center;
+      }
+      .link-item:not(:first-of-type) {
+        border-left: 1px solid;
       }
       .link-item a {
         text-decoration: none;

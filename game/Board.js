@@ -1,7 +1,8 @@
 import Tile from './Tile';
 import Scores from './Scores';
+import Setup from './Setup';
 import { useState } from 'react';
-const { countMinesHint, calcScore } = require('./Graph');
+const { countMinesHint, calcScore, saveScore } = require('./Graph');
 
 const generateTile = (id, pos, width, value, done, handleClick) => <Tile key={id} pos={pos} width={width} value={value} done={done} handleClick={handleClick} />
 
@@ -17,23 +18,21 @@ const generateRow = (i, size, row) => (
     </div>
 );
 
-const Board = ({ tiles: { mines, adjacency, size, count }, width }) => {
-    console.log("Board countdown: ", count);
-    const [scores, setScores] = useState({ clicks: 0, points: 0, increment: 1 });
-    const [countdown, setCountdown] = useState(size * size - count);
+const Board = ({ tiles: { mines, adjacency, size, count }, width, ready, onSetup, onReady }) => {
+    console.log("Hints countdown: ", count);
+    const [scores, setScores] = useState({ clicks: 0, points: 0, increment: 1, countdown: (size * size - count) });
 
     const handleTileClicked = (tile) => {
         console.log('clicked', tile);
         if (tile.mine === false) {
-            setScores({ points: (scores.points + scores.increment), clicks: (scores.clicks + 1), increment: (scores.increment + 1) });
-            setCountdown(countdown - 1);
+            setScores({ points: (scores.points + scores.increment), clicks: (scores.clicks + 1), increment: (scores.increment + 1), countdown: (scores.countdown - 1) });
         }
         else {
-            setScores({ points: (scores.points - scores.increment), clicks: (scores.clicks + 1), increment: 1 });
+            setScores({ points: (scores.points - scores.increment), clicks: (scores.clicks + 1), increment: 1, countdown: scores.countdown });
         }
     }
 
-    let done = countdown === 0;
+    let done = scores.countdown === 0;
     let grid = [];
     for (let i = 0; i < mines.length; i += size) {
         let row = [];
@@ -47,22 +46,29 @@ const Board = ({ tiles: { mines, adjacency, size, count }, width }) => {
         grid.push(generateRow(i, size, row));
     }
 
-    if(done){
+    if (done) {
         saveScore(calcScore(scores, count, (size * size)));
     }
 
     return (
         <div className="board">
             <Scores scores={scores} />
+            <Setup onSetup={onSetup} onReady={onReady} />
+            {ready? (
             <div className="grid">
                 {grid}
-                <style jsx>{`
+            </div>
+            ): null }
+            <style jsx>{`
+                .board {
+                    border: 1px solid;
+                    border-radius: 5px 5px 0 0;
+                }
                 .grid {
                     display: grid;
                     grid-auto-flow: row;
                 }
             `}</style>
-            </div>
         </div>
     );
 };
