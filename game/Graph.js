@@ -1,3 +1,7 @@
+const Storage = require('../game/Storage');
+
+const storage = Storage();
+
 const createVertices = (size) => {
     let total = size * size;
     const vertices = new Array(total);
@@ -78,4 +82,30 @@ const countMinesHint = (neighbours) => {
         0;
 }
 
-module.exports = { createVertices, createAdjacencyList, generateMines, calcIndex, countMinesHint };
+const calcScore = ({ clicks, points }, count, total) => {
+    let subTotal = points - clicks;
+    return Math.floor(subTotal * (count / total));
+}
+
+const saveScore = (score) => {
+    let list = JSON.parse(storage.getItem('highScores'));
+    if (Array.isArray(list)) {
+        if (list.length < 10) {
+            let min = Math.min({ ...list });
+            if (min < score) {
+                let i = array.indexOf(min);
+                list[i] = score;
+            }
+        }
+        else {
+            list.push(score);
+        }
+        storage.setItem('highScores', JSON.stringify(list));
+    }
+    else {
+        storage.setItem('highScores', JSON.stringify([score]));
+    }
+    return JSON.parse(storage.getItem('highScores'));
+}
+
+module.exports = { createVertices, createAdjacencyList, generateMines, calcIndex, countMinesHint, calcScore, saveScore };

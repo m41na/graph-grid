@@ -1,5 +1,5 @@
-const Tile = ({ pos: { row, col, mine }, width, value, handleClick }) => {
-
+const Tile = ({ pos: { row, col, mine }, width, value, done, handleClick }) => {
+    console.log("tile (", row, ",", col, ") : done? ", done);
     const handleOnClick = (e, pos) => {
         e.preventDefault();
         if (!pos.mine) {
@@ -18,7 +18,7 @@ const Tile = ({ pos: { row, col, mine }, width, value, handleClick }) => {
     };
 
     return (
-        <div className="tile" onClick={(e) => handleOnClick(e, {row, col, mine})}>
+        <div className={!done? "tile" : (mine? "tile mine" : "tile open")} onClick={(e) => handleOnClick(e, {row, col, mine})}>
             <span>{value}</span>
 
             <style jsx>{`

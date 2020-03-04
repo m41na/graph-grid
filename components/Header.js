@@ -6,13 +6,17 @@ const linkStyle = {
 
 const Header = () => (
   <div className="header">
-    <div className="header-links">
+    <div className="link-item">
       <Link href="/">
         <a style={linkStyle}>Playing</a>
       </Link>
+    </div>
+    <div className="link-item">
       <Link href="/about">
         <a style={linkStyle}>How To Play</a>
       </Link>
+    </div>
+    <div className="link-item">
       <Link href="/history">
         <a style={linkStyle}>History</a>
       </Link>
@@ -25,14 +29,14 @@ const Header = () => (
         font-weight: bold;
         font-size: 1.5em;
       } 
-      .header-links {
+      .link-item{
         padding: 10px;
       }
-      .header-links a {
+      .link-item a {
         text-decoration: none;
       }
     `}</style>
-  </div>
+  </div >
 );
 
 export default Header;

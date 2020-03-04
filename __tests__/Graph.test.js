@@ -1,4 +1,7 @@
-const {createVertices, createAdjacencyList, generateMines, calcIndex, countMinesHint } = require('../parts/Graph');
+const { 
+    createVertices, createAdjacencyList, generateMines, 
+    calcIndex, countMinesHint, calcScore, saveScore 
+} = require('../game/Graph');
 
 describe('test creating vertices', () => {
 
@@ -26,7 +29,7 @@ describe('test creating vertices', () => {
     test('test calcIndex function', () => {
         let vertices = createVertices(max);
         vertices.forEach(v => {
-            let {r, c} = v;
+            let { r, c } = v;
             expect(calcIndex(max, r, c)).toBe(v.i)
         })
     });
@@ -36,7 +39,19 @@ describe('test creating vertices', () => {
         let nodes = generateMines(count, (max * max), vertices);
         let adjacency = createAdjacencyList(nodes, max);
         console.log(adjacency);
-        let counts = adjacency.map((v, i) => ({i, count: countMinesHint(v)}));
+        let counts = adjacency.map((v, i) => ({ i, count: countMinesHint(v) }));
         console.log(counts);
+    });
+
+    test('test calcScore function', () => {
+        let tally = { points: 1600, clicks: 90 };
+        let score = calcScore(tally, 30, 100);
+        console.log('score: ', score);
+    });
+
+    test('test saveScore function', () => {
+        let score = 453;
+        let scores = saveScore(score);
+        console.log('scores: ', scores);
     });
 });

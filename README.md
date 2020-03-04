@@ -22,8 +22,8 @@ Playing
 
     a. The clicks count is subtracted from the points earned.
 
-    b. The ratio of the boom tiles to the total tiles on the board is applied to the points earned after (a) above, and then multiplied by the number total tiles on the board
+    b. The ratio of the boom tiles to the total tiles on the board is applied to the points earned after (a) above
 
     c. If the value from (b) above has a fractional component, the number is rounded of to the nearest whole number smaller than itself (floor).
 
-7. The calculated score value is saved in the daily score history, and for each day, the highest score is kept and the lower score disposed.
+7. The calculated score value is saved in the score history for top 10 best scores. Scores lower than the least of these is just discarded
