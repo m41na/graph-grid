@@ -5,13 +5,33 @@ const linkStyle = {
 };
 
 const Header = () => (
-  <div>
-    <Link href="/">
-      <a style={linkStyle}>Home</a>
-    </Link>
-    <Link href="/about">
-      <a style={linkStyle}>About</a>
-    </Link>
+  <div className="header">
+    <div className="header-links">
+      <Link href="/">
+        <a style={linkStyle}>Play</a>
+      </Link>
+      <Link href="/about">
+        <a style={linkStyle}>How To Play</a>
+      </Link>
+      <Link href="/history">
+        <a style={linkStyle}>History</a>
+      </Link>
+    </div>
+    <style jsx>{`
+      .header{
+        display: grid;
+        grid-auto-flow: column;
+        padding: 0 0 20px;
+        font-weight: bold;
+        font-size: 1.5em;
+      } 
+      .header-links {
+        padding: 10px;
+      }
+      .header-links a {
+        text-decoration: none;
+      }
+    `}</style>
   </div>
 );
 

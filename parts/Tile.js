@@ -1,14 +1,20 @@
 const Tile = ({ pos: { row, col, mine }, width, value, handleClick }) => {
 
     const handleOnClick = (e, pos) => {
+        e.preventDefault();
         if (!pos.mine) {
-            e.target.classList.add('open');
+            if(!e.target.classList.contains("open")){
+                e.target.classList.add('open');
+                handleClick(pos);
+            }
         }
         else {
-            e.target.classList.add('mine');
-            console.log('Ka-Boom!!');
+            if(!e.target.classList.contains('mine')){
+                e.target.classList.add('mine');
+                handleClick(pos);
+                console.log('Ka-Boom!!');
+            }
         }
-        handleClick(pos)
     };
 
     return (
@@ -17,6 +23,8 @@ const Tile = ({ pos: { row, col, mine }, width, value, handleClick }) => {
 
             <style jsx>{`
                 .tile{
+                    display: grid;
+                    align-content: center;
                     height: ${width}px;
                     border: 1px solid red;
                     background-color: grey;
